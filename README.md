@@ -5,5 +5,6 @@ Ini adalah aplikasi android sederhana yang dibangun menggunakan beberapa kompone
 * Fragement
 * List (on progress)
 * Database (on progress)
+* Firebase (on progress)
 
 Semoga bermanfaat
