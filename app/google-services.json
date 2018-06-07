@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "289320419877",
+    "firebase_url": "https://budget-a7c4d.firebaseio.com",
+    "project_id": "budget-a7c4d",
+    "storage_bucket": "budget-a7c4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289320419877:android:092f9a6aec65dc62",
+        "android_client_info": {
+          "package_name": "com.yaddisurahman.bugdet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289320419877-3qvukah0t0s8o4h2el42pfv1jkdm34pp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yaddisurahman.bugdet",
+            "certificate_hash": "c51d730e3b4ec1f95956f610605ecb2a3737af0c"
+          }
+        },
+        {
+          "client_id": "289320419877-mpq5s1dp7gb1hls1em7j1coecg38tusf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "289320419877-mpq5s1dp7gb1hls1em7j1coecg38tusf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD6uROVzOqM2V30gm-_ji19kN8_cIT1WQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289320419877-mpq5s1dp7gb1hls1em7j1coecg38tusf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

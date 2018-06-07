@@ -1,5 +1,6 @@
 package com.yaddisurahman.bugdet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.yaddisurahman.bugdet.fragments.BudgetFragment;
 import com.yaddisurahman.bugdet.fragments.CategoryFragment;
 import com.yaddisurahman.bugdet.fragments.ReportFragment;
@@ -20,6 +27,13 @@ import com.yaddisurahman.bugdet.fragments.TransactionFragment;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
+
+  private GoogleSignInClient mGoogleSignInClient;
+  private FirebaseAuth mAuth;
+  private TextView userInfo;
+  Fragment fragment = null;
+  private static final int RC_SIGN_IN = 9001;
+  private static final String TAG = "GoogleActivity";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,14 @@ public class MainActivity extends AppCompatActivity
 //            .setAction("Action", null).show();
 //      }
 //    });
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build();
+    mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+    mAuth = FirebaseAuth.getInstance();
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,6 +67,18 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user == null) {
+      Log.d("Auth", "user enggak ada, redirecting");
+      // User is signed in
+      Intent userIntent = new Intent(this, UserActivity.class);
+      startActivity(userIntent);
+    }
   }
 
   @Override
@@ -85,7 +119,6 @@ public class MainActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    Fragment fragment = null;
     if (id == R.id.nav_budget) {
       fragment = new BudgetFragment();
     } else if (id == R.id.nav_transaction) {
@@ -94,11 +127,15 @@ public class MainActivity extends AppCompatActivity
       fragment = new ReportFragment();
     } else if (id == R.id.nav_category) {
       fragment = new CategoryFragment();
-    } else {
-      fragment = new BudgetFragment();
     }
 
-    switchToFragment(fragment);
+    if (id == R.id.nav_share) {
+      Intent userIntent = new Intent(this, UserActivity.class);
+      startActivity(userIntent);
+    } else {
+      switchToFragment(fragment);
+    }
+
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
